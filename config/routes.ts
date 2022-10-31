@@ -58,4 +58,9 @@ export default [
     layout: false,
     component: './404',
   },
+  {
+    name: 'flow-chart',
+    path: '/flow-chart',
+    component: './FlowChart',
+  },
 ];
