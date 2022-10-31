@@ -1,3 +1,4 @@
+import FlowChart from '@/components/FlowChart';
 import ProductOption from '@/components/ProductOption';
 import s from './index.less';
 const FlowChartPage = () => {
@@ -6,7 +7,9 @@ const FlowChartPage = () => {
       <div className={s.optionWrapper}>
         <ProductOption />
       </div>
-      <div className={s.container}>流程图</div>
+      <div className={s.containerWrapper}>
+        <FlowChart />
+      </div>
     </div>
   );
 };
