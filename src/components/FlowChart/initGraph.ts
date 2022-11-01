@@ -50,10 +50,10 @@ export const initGraph = () => {
     },
     scroller: {
       enabled: true,
-      padding: 0,
-      pageWidth: 0,
-      minVisibleHeight: 0,
-      minVisibleWidth: 0,
+      padding: 12,
+      // pageWidth: 0,
+      // minVisibleHeight: 0,
+      // minVisibleWidth: 0,
       pannable: true,
     },
     // @ts-ignore

@@ -1,66 +1,35 @@
-import { Graph } from '@antv/x6';
+import type { Cell } from '@antv/x6';
+import { Color, Graph } from '@antv/x6';
 export const registerNodes = () => {
+  const portAttrs = {
+    circle: {
+      r: 4,
+      magnet: true,
+      stroke: '#5F95FF',
+      strokeWidth: 1,
+      fill: '#fff',
+      style: {
+        visibility: 'hidden',
+      },
+    },
+  };
   const ports = {
     groups: {
       top: {
         position: 'top',
-        attrs: {
-          circle: {
-            r: 4,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
+        attrs: { ...portAttrs },
       },
       right: {
         position: 'right',
-        attrs: {
-          circle: {
-            r: 4,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
+        attrs: { ...portAttrs },
       },
       bottom: {
         position: 'bottom',
-        attrs: {
-          circle: {
-            r: 4,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
+        attrs: { ...portAttrs },
       },
       left: {
         position: 'left',
-        attrs: {
-          circle: {
-            r: 4,
-            magnet: true,
-            stroke: '#5F95FF',
-            strokeWidth: 1,
-            fill: '#fff',
-            style: {
-              visibility: 'hidden',
-            },
-          },
-        },
+        attrs: { ...portAttrs },
       },
     },
     items: [
@@ -87,6 +56,60 @@ export const registerNodes = () => {
       inherit: 'rect',
       width: 100,
       height: 60,
+      // 自定义按钮工具
+      tools: [
+        {
+          name: 'button-remove',
+          args: {
+            x: '100%',
+            y: 0,
+            offset: { x: -10, y: 10 },
+          },
+        },
+        {
+          name: 'button',
+          args: {
+            markup: [
+              {
+                tagName: 'circle',
+                selector: 'button',
+                attrs: {
+                  r: 7,
+                  fill: 'blue',
+                  cursor: 'pointer',
+                },
+              },
+              {
+                tagName: 'text',
+                textContent: '+',
+                selector: 'icon',
+                attrs: {
+                  fill: 'white',
+                  fontSize: 16,
+                  fontWeight: 'bolder',
+                  textAnchor: 'middle',
+                  pointerEvents: 'none',
+                  y: '0.3em',
+                },
+              },
+            ],
+            x: '100%',
+            y: '100%',
+            offset: { x: -10, y: -10 },
+            onClick({ cell }: { cell: Cell }) {
+              const fill = Color.randomHex();
+              cell.attr({
+                body: {
+                  fill,
+                },
+                label: {
+                  fill: Color.invert(fill, true),
+                },
+              });
+            },
+          },
+        },
+      ],
       attrs: {
         body: {
           strokeWidth: 1,
