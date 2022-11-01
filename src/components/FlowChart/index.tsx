@@ -1,11 +1,13 @@
 import type { Cell, Graph } from '@antv/x6';
 import { useState, useEffect } from 'react';
+import EditModal from './EditModal';
 import { getFakeData } from './getFakeData';
 // import { autoLayout } from './autoLayout';
 import { initGraph } from './initGraph';
 
 const FlowChart = () => {
   //   const data: any[] = [];
+  const [isVisible, setVisible] = useState<boolean>(false);
   const [graph, setGraph] = useState<Graph>();
   // 初始化画布
   useEffect(() => {
@@ -31,7 +33,9 @@ const FlowChart = () => {
     // graph.zoomToFit();
     graph.centerContent();
     // setup();
-
+    graph.on('node:click', ({ node }) => {
+      if (node) setVisible(true);
+    });
     graph.on('node:mouseenter', ({ node }) => {
       console.log(node);
       if (node) {
@@ -54,7 +58,12 @@ const FlowChart = () => {
       }
     });
   }, [graph]);
-  return <div id="container" />;
+  return (
+    <>
+      <div id="container" />
+      <EditModal isVisible={isVisible} />
+    </>
+  );
 };
 
 export default FlowChart;
