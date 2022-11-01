@@ -1,47 +1,58 @@
-import type { Graph } from '@antv/x6';
+import type { Cell, Graph } from '@antv/x6';
 import { useState, useEffect } from 'react';
+import { getFakeData } from './getFakeData';
 // import { autoLayout } from './autoLayout';
-import { createEdge, createNode, initGraph } from './initGraph';
-const male =
-  'https://gw.alipayobjects.com/mdn/rms_43231b/afts/img/A*kUy8SrEDp6YAAAAAAAAAAAAAARQnAQ';
-const female =
-  'https://gw.alipayobjects.com/mdn/rms_43231b/afts/img/A*f6hhT75YjkIAAAAAAAAAAAAAARQnAQ';
-// 布局方向
-export const dir = 'LR'; // LR RL TB BT
+import { initGraph } from './initGraph';
+
 const FlowChart = () => {
-  const data: any[] = [];
+  //   const data: any[] = [];
   const [graph, setGraph] = useState<Graph>();
   // 初始化画布
   useEffect(() => {
-    if (data) {
-      graph?.dispose();
-      setGraph(initGraph());
-    }
-  }, [data]);
+    // if (data) {
+    //   graph?.dispose();
+    setGraph(initGraph());
+    // }
+  }, []);
 
   // 计算并渲染图元
   useEffect(() => {
     if (!graph) return;
-    const nodes = [
-      createNode(graph, 'Founder & Chairman', 'Pierre Omidyar', male),
-      createNode(graph, 'President & CEO', 'Margaret C. Whitman', female),
-      createNode(graph, 'President, PayPal', 'Scott Thompson', male),
-      createNode(graph, 'President, Ebay Global Marketplaces', 'Devin Wenig', male),
-      createNode(graph, 'Senior Vice President Human Resources', 'Jeffrey S. Skoll', male),
-      createNode(graph, 'Senior Vice President Controller', 'Steven P. Westly', male),
-    ];
-    const edges = [
-      createEdge(graph, nodes[0], nodes[1]),
-      createEdge(graph, nodes[1], nodes[2]),
-      createEdge(graph, nodes[1], nodes[3]),
-      createEdge(graph, nodes[1], nodes[4]),
-      createEdge(graph, nodes[1], nodes[5]),
-    ];
-    graph.resetCells([...nodes, ...edges]);
-    // autoLayout(graph);
-    graph.zoomTo(0.8);
+    const cells: Cell[] = [];
+    getFakeData().forEach((item: any) => {
+      if (item.shape === 'flow-node') {
+        cells.push(graph.createNode(item));
+      } else {
+        cells.push(graph.createEdge(item));
+      }
+    });
+    graph.resetCells(cells);
+    // graph.zoomTo(0.8);
+    // graph.zoomToFit();
     graph.centerContent();
     // setup();
+
+    graph.on('node:mouseenter', ({ node }) => {
+      console.log(node);
+      if (node) {
+        node.addTools({
+          name: 'boundary',
+          args: {
+            attrs: {
+              fill: '#7c68fc',
+              stroke: '#9254de',
+              strokeWidth: 1,
+              fillOpacity: 0.2,
+            },
+          },
+        });
+      }
+    });
+    graph.on('node:mouseleave', ({ node }) => {
+      if (node) {
+        node.removeTools();
+      }
+    });
   }, [graph]);
   return <div id="container" />;
 };

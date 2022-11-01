@@ -9,6 +9,15 @@ export const initGraph = () => {
   // 初始化画布
   return new Graph({
     container: document.getElementById('container')!,
+    // 连线选项
+    connecting: {
+      router: 'manhattan',
+      // 锚点
+      //   sourceAnchor: 'right',
+      //   targetAnchor: 'left',
+      // 连接点
+      //   connectionPoint: 'anchor',
+    },
     scroller: {
       enabled: true,
       padding: 0,
@@ -17,7 +26,15 @@ export const initGraph = () => {
       minVisibleWidth: 0,
       pannable: true,
     },
-    interacting: false,
+    // @ts-ignore
+    height: '100%',
+    autoResize: true,
+    // 对齐线
+    snapline: true,
+    // 网格
+    grid: {
+      visible: true,
+    },
   });
 };
 

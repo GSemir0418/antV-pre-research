@@ -1,3 +1,4 @@
+// @ts-ignore
 import { dir } from './index';
 import type { Graph } from '@antv/x6';
 import dagre from 'dagre';

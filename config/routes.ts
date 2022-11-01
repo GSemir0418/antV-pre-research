@@ -51,7 +51,7 @@ export default [
   },
   {
     path: '/',
-    redirect: '/welcome',
+    redirect: '/flow-chart',
   },
   {
     path: '*',
@@ -60,6 +60,7 @@ export default [
   },
   {
     name: 'flow-chart',
+    layout: false,
     path: '/flow-chart',
     component: './FlowChart',
   },

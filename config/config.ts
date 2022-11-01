@@ -130,6 +130,7 @@ export default defineConfig({
       projectName: 'swagger',
     },
   ],
+  mfsu: false,
   // mfsu: {
   //   exclude :['@playwright/test']
   // },
