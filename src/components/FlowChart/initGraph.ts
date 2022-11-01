@@ -1,4 +1,5 @@
 import type { Cell } from '@antv/x6';
+import { Shape } from '@antv/x6';
 import { Dom } from '@antv/x6';
 import { Graph } from '@antv/x6';
 import { registerNodes } from './registerNodes';
@@ -9,14 +10,43 @@ export const initGraph = () => {
   // 初始化画布
   return new Graph({
     container: document.getElementById('container')!,
+    mousewheel: {
+      enabled: true,
+      zoomAtMousePosition: true,
+      modifiers: 'ctrl',
+      minScale: 0.5,
+      maxScale: 3,
+    },
     // 连线选项
     connecting: {
       router: 'manhattan',
       // 锚点
-      //   sourceAnchor: 'right',
-      //   targetAnchor: 'left',
+      // anchor: 'orth',
+      allowBlank: false,
       // 连接点
-      //   connectionPoint: 'anchor',
+      connectionPoint: 'rect',
+      createEdge() {
+        return new Shape.Edge({
+          inherit: 'edge',
+          attrs: {
+            line: {
+              stroke: '#A2B1C3',
+              strokeWidth: 2,
+            },
+          },
+          label: {
+            attrs: {
+              label: {
+                fill: '#A2B1C3',
+                fontSize: 12,
+              },
+            },
+          },
+        });
+      },
+      validateConnection({ targetMagnet }) {
+        return !!targetMagnet;
+      },
     },
     scroller: {
       enabled: true,
@@ -56,7 +86,7 @@ export const createNode = (graph: Graph, rank: string, name: string, image: stri
 export const createEdge = (graph: Graph, source: Cell, target: Cell) => {
   return graph.createEdge({
     shape: 'org-edge',
-    source: { cell: source.id },
-    target: { cell: target.id },
+    source: { cell: source.id, port: 'top' },
+    target: { cell: target.id, port: 'top' },
   });
 };

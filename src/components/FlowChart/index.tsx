@@ -4,7 +4,11 @@ import EditModal from './EditModal';
 import { getFakeData } from './getFakeData';
 // import { autoLayout } from './autoLayout';
 import { initGraph } from './initGraph';
-
+const showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
+  for (let i = 0, len = ports.length; i < len; i = i + 1) {
+    ports[i].style.visibility = show ? 'visible' : 'hidden';
+  }
+};
 const FlowChart = () => {
   //   const data: any[] = [];
   const [isVisible, setVisible] = useState<boolean>(false);
@@ -49,62 +53,72 @@ const FlowChart = () => {
         setVisible(true);
       }
     });
-    graph.on('node:mouseenter', ({ node }) => {
-      if (node) {
-        node.addTools([
-          {
-            name: 'button-remove',
-            args: {
-              x: 0,
-              y: 0,
-              offset: { x: 10, y: 10 },
-            },
-          },
-          {
-            name: 'button',
-            args: {
-              markup: [
-                {
-                  tagName: 'circle',
-                  selector: 'button',
-                  attrs: {
-                    r: 14,
-                    stroke: '#fe854f',
-                    strokeWidth: 2,
-                    fill: 'white',
-                    cursor: 'pointer',
-                  },
-                },
-                {
-                  tagName: 'text',
-                  textContent: 'Btn',
-                  selector: 'icon',
-                  attrs: {
-                    fill: '#fe854f',
-                    fontSize: 10,
-                    textAnchor: 'middle',
-                    pointerEvents: 'none',
-                    y: '0.3em',
-                  },
-                },
-              ],
-              x: '100%',
-              y: '100%',
-              offset: { x: -20, y: -20 },
-              onClick({ cell }: { cell: Cell }) {
-                console.log(cell);
-              },
-            },
-          },
-        ]);
-      }
+    graph.on('node:mouseenter', () => {
+      const container = document.getElementById('container')!;
+      const ports = container.querySelectorAll('.x6-port-body') as NodeListOf<SVGElement>;
+      showPorts(ports, true);
     });
-    graph.on('node:mouseleave', ({ node }) => {
-      if (node) {
-        node.removeTool('button');
-        node.removeTool('button-remove');
-      }
+    graph.on('node:mouseleave', () => {
+      const container = document.getElementById('container')!;
+      const ports = container.querySelectorAll('.x6-port-body') as NodeListOf<SVGElement>;
+      showPorts(ports, false);
     });
+    // graph.on('node:mouseenter', ({ node }) => {
+    //   if (node) {
+    //     node.addTools([
+    //       {
+    //         name: 'button-remove',
+    //         args: {
+    //           x: 0,
+    //           y: 0,
+    //           offset: { x: 10, y: 10 },
+    //         },
+    //       },
+    //       {
+    //         name: 'button',
+    //         args: {
+    //           markup: [
+    //             {
+    //               tagName: 'circle',
+    //               selector: 'button',
+    //               attrs: {
+    //                 r: 14,
+    //                 stroke: '#fe854f',
+    //                 strokeWidth: 2,
+    //                 fill: 'white',
+    //                 cursor: 'pointer',
+    //               },
+    //             },
+    //             {
+    //               tagName: 'text',
+    //               textContent: 'Btn',
+    //               selector: 'icon',
+    //               attrs: {
+    //                 fill: '#fe854f',
+    //                 fontSize: 10,
+    //                 textAnchor: 'middle',
+    //                 pointerEvents: 'none',
+    //                 y: '0.3em',
+    //               },
+    //             },
+    //           ],
+    //           x: '100%',
+    //           y: '100%',
+    //           offset: { x: -20, y: -20 },
+    //           onClick({ cell }: { cell: Cell }) {
+    //             console.log(cell);
+    //           },
+    //         },
+    //       },
+    //     ]);
+    //   }
+    // });
+    // graph.on('node:mouseleave', ({ node }) => {
+    //   if (node) {
+    //     node.removeTool('button');
+    //     node.removeTool('button-remove');
+    //   }
+    // });
   }, [graph]);
   return (
     <>
