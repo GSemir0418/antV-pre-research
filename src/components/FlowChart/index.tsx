@@ -32,13 +32,9 @@ const FlowChart = () => {
     // graph.zoomTo(0.8);
     // graph.zoomToFit();
     graph.centerContent();
-    // setup();
     graph.on('node:click', ({ node }) => {
-      if (node) setVisible(true);
-    });
-    graph.on('node:mouseenter', ({ node }) => {
-      console.log(node);
       if (node) {
+        graph.removeTools();
         node.addTools({
           name: 'boundary',
           args: {
@@ -50,11 +46,63 @@ const FlowChart = () => {
             },
           },
         });
+        setVisible(true);
+      }
+    });
+    graph.on('node:mouseenter', ({ node }) => {
+      if (node) {
+        node.addTools([
+          {
+            name: 'button-remove',
+            args: {
+              x: 0,
+              y: 0,
+              offset: { x: 10, y: 10 },
+            },
+          },
+          {
+            name: 'button',
+            args: {
+              markup: [
+                {
+                  tagName: 'circle',
+                  selector: 'button',
+                  attrs: {
+                    r: 14,
+                    stroke: '#fe854f',
+                    strokeWidth: 2,
+                    fill: 'white',
+                    cursor: 'pointer',
+                  },
+                },
+                {
+                  tagName: 'text',
+                  textContent: 'Btn',
+                  selector: 'icon',
+                  attrs: {
+                    fill: '#fe854f',
+                    fontSize: 10,
+                    textAnchor: 'middle',
+                    pointerEvents: 'none',
+                    y: '0.3em',
+                  },
+                },
+              ],
+              x: '100%',
+              y: '100%',
+              offset: { x: -20, y: -20 },
+              onClick({ cell }: { cell: Cell }) {
+                console.log(cell);
+              },
+            },
+          },
+        ]);
       }
     });
     graph.on('node:mouseleave', ({ node }) => {
       if (node) {
-        node.removeTools();
+        node.removeTool('button');
+        node.removeTool('button-remove');
       }
     });
   }, [graph]);
