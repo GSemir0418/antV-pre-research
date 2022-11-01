@@ -61,7 +61,12 @@ const FlowChart = () => {
   return (
     <>
       <div id="container" />
-      <EditModal isVisible={isVisible} />
+      <EditModal
+        isVisible={isVisible}
+        close={() => {
+          setVisible(false);
+        }}
+      />
     </>
   );
 };

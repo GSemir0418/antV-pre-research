@@ -16,7 +16,7 @@ const ProductOption = () => {
       result.push({
         id: 1000 + i,
         name: `产品${i}`,
-        desc: `A0${i}`,
+        desc: `这是A0${i}产品的描述`,
       });
     }
     return result;

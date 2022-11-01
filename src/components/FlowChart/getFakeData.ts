@@ -4,44 +4,32 @@ const fakeData = [
     shape: 'flow-node',
     width: 100,
     height: 60,
-    position: { x: 110, y: 120 },
+    position: { x: 100, y: 100 },
     label: 'First',
-    attrs: {
-      //   body: { rx: 30, ry: 30 },
-    },
   },
   {
     id: 2,
     shape: 'flow-node',
     width: 100,
     height: 60,
-    position: { x: 320, y: 120 },
+    position: { x: 300, y: 200 },
     label: 'Second',
-    attrs: {
-      //   body: { rx: 30, ry: 30 },
-    },
   },
   {
     id: 3,
     shape: 'flow-node',
     width: 100,
     height: 60,
-    position: { x: 520, y: 120 },
+    position: { x: 500, y: 200 },
     label: 'Third',
-    attrs: {
-      //   body: { rx: 30, ry: 30 },
-    },
   },
   {
     id: 4,
     shape: 'flow-node',
     width: 100,
     height: 60,
-    position: { x: 320, y: 240 },
+    position: { x: 300, y: 0 },
     label: 'Fourth',
-    attrs: {
-      //   body: { rx: 30, ry: 30 },
-    },
   },
   {
     id: 5,
