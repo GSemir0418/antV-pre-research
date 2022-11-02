@@ -1,26 +1,36 @@
+import { PartitionOutlined, SaveFilled } from '@ant-design/icons';
 import type { Cell, Graph } from '@antv/x6';
+import { Toolbar } from '@antv/x6-react-components';
+import '@antv/x6-react-components/es/menu/style/index.css';
+import '@antv/x6-react-components/es/toolbar/style/index.css';
 import { useState, useEffect } from 'react';
+import { autoLayout } from './autoLayout';
 import EditModal from './EditModal';
 import { getFakeData } from './getFakeData';
 // import { autoLayout } from './autoLayout';
 import { initGraph } from './initGraph';
-const showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
-  for (let i = 0, len = ports.length; i < len; i = i + 1) {
-    ports[i].style.visibility = show ? 'visible' : 'hidden';
-  }
-};
 const FlowChart = () => {
-  //   const data: any[] = [];
+  // 工序详情显隐
   const [isVisible, setVisible] = useState<boolean>(false);
+  // 画布
   const [graph, setGraph] = useState<Graph>();
+  // 工具栏按钮回调
+  const onToolbarClick = (name: string) => {
+    if (name === 'format') {
+      // 自动格式化
+      autoLayout(graph!);
+    }
+  };
+  // 控制链接桩显隐
+  const showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
+    for (let i = 0, len = ports.length; i < len; i = i + 1) {
+      ports[i].style.visibility = show ? 'visible' : 'hidden';
+    }
+  };
   // 初始化画布
   useEffect(() => {
-    // if (data) {
-    //   graph?.dispose();
     setGraph(initGraph());
-    // }
   }, []);
-
   // 计算并渲染图元
   useEffect(() => {
     if (!graph) return;
@@ -122,6 +132,14 @@ const FlowChart = () => {
   }, [graph]);
   return (
     <>
+      <Toolbar size="big" align="right" hoverEffect={true} onClick={onToolbarClick}>
+        <Toolbar.Group>
+          <Toolbar.Item name="save" tooltip="保存数据" icon={<SaveFilled />} />
+        </Toolbar.Group>
+        <Toolbar.Group>
+          <Toolbar.Item name="format" tooltip="自动布局" icon={<PartitionOutlined />} />
+        </Toolbar.Group>
+      </Toolbar>
       <div id="container" />
       <EditModal
         isVisible={isVisible}
