@@ -5,10 +5,8 @@ import { Graph } from '@antv/x6';
 import { registerNodes } from './registerNodes';
 
 export const initGraph = () => {
-  // 注册自定义图元
-  registerNodes();
   // 初始化画布
-  return new Graph({
+  const g = new Graph({
     container: document.getElementById('container')!,
     mousewheel: {
       enabled: true,
@@ -66,6 +64,9 @@ export const initGraph = () => {
       visible: true,
     },
   });
+  // 注册自定义图元
+  registerNodes(g);
+  return g;
 };
 
 export const createNode = (graph: Graph, rank: string, name: string, image: string) => {

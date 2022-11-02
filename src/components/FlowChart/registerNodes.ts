@@ -1,6 +1,6 @@
 import type { Cell } from '@antv/x6';
-import { Color, Graph } from '@antv/x6';
-export const registerNodes = () => {
+import { Graph } from '@antv/x6';
+export const registerNodes = (g: Graph) => {
   const portAttrs = {
     circle: {
       r: 4,
@@ -97,15 +97,21 @@ export const registerNodes = () => {
             y: '100%',
             offset: { x: -10, y: -10 },
             onClick({ cell }: { cell: Cell }) {
-              const fill = Color.randomHex();
-              cell.attr({
-                body: {
-                  fill,
-                },
-                label: {
-                  fill: Color.invert(fill, true),
-                },
+              // 创建新节点并连接
+              const newNode = g.createNode({
+                shape: 'flow-node',
+                width: 100,
+                height: 60,
+                label: '新工序',
               });
+              g.addCell([
+                newNode,
+                g.createEdge({
+                  shape: 'flow-edge',
+                  source: { cell: cell.id },
+                  target: { cell: newNode.id },
+                }),
+              ]);
             },
           },
         },
