@@ -64,4 +64,10 @@ export default [
     path: '/flow-chart',
     component: './FlowChart',
   },
+  {
+    name: 'gantt-chart',
+    layout: false,
+    path: '/gantt-chart',
+    component: './GanttChart',
+  },
 ];
