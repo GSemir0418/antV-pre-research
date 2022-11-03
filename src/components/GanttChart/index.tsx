@@ -59,9 +59,8 @@ const GanttChart = (chartProps: any) => {
             tooltip: node.id,
             startTime: timeFormat(nodeStartTime),
             endTime: timeFormat(nodeEndTime),
-            materialName: node.getProp().materialName,
-            remark: node.getProp().remark1,
-            scheduleNum: node.getProp().scheduleNum,
+            orderInfo: node.getProp().orderInfo,
+            deviceInfo: node.getProp().deviceInfo,
           },
         },
       ]);

@@ -18,7 +18,7 @@ const OrderOption = () => {
     }
     return result;
   };
-  const fakeList: OrderList[] = geneFakeOrderList(9);
+  const fakeList: OrderList[] = geneFakeOrderList(7);
   // 默认选中全部
   useEffect(() => {
     if (fakeList.length > 0) setSelectedRowKeys(fakeList.map((item) => item.id));

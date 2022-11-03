@@ -31,13 +31,10 @@ export class TooltipTool extends ToolsView.ToolItem<EdgeView, TooltipToolOptions
                 <span>结束时间：{this.options.endTime}</span>
               </div>
               <div>
-                <span>物料名称：{this.options.materialName}</span>
+                <span>订单信息：{this.options.orderInfo}</span>
               </div>
               <div>
-                <span>数量：{this.options.scheduleNum}</span>
-              </div>
-              <div>
-                <span>备注1：{this.options.remark}</span>
+                <span>设备信息：{this.options.deviceInfo}</span>
               </div>
             </>
           }
@@ -107,9 +104,8 @@ export interface TooltipToolOptions extends ToolsView.ToolItem.Options {
   tooltip: string;
   startTime: string;
   endTime: string;
-  materialName: string;
-  remark: string;
-  scheduleNum: number;
+  orderInfo: string;
+  deviceInfo: number;
 }
 // const graph = new Graph({
 //   container: document.getElementById('container') as HTMLDivElement,

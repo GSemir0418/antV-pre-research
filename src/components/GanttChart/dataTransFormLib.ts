@@ -18,7 +18,7 @@ export const pxToMillionSecond = (px: number, mode: TIME_MODE) => {
  * @return 时间戳
  */
 export const positionXTotime = (x: number, mode: TIME_MODE) => {
-  return new Date(ORIGIN_TIME).getTime() + pxToMillionSecond(x - TABLE_WIDTH * 3, mode);
+  return new Date(ORIGIN_TIME).getTime() + pxToMillionSecond(x - TABLE_WIDTH, mode);
 };
 
 /**
@@ -54,8 +54,8 @@ export const minuteGap = (time1: string, time2: string): number => {
  * @return x坐标（px）
  */
 export const timeToPositionX = (s: string, mode: TIME_MODE) => {
-  // 加八小时时差
-  return TABLE_WIDTH * 3 + minuteToPx(8 * 60, mode) + minuteToPx(minuteGap(ORIGIN_TIME, s), mode);
+  // 加八小时时差（可能需要也可能不需要？）
+  return TABLE_WIDTH + minuteToPx(minuteGap(ORIGIN_TIME, s), mode);
 };
 
 /**

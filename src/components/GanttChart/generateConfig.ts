@@ -27,13 +27,11 @@ export const COLUMN_WIDTH = (mode: TIME_MODE) => {
  * @desc 根据原始数据的yy字段生成行数组
  * @desc 包括equipName等字段
  * @params 原始数据
- * @return 去重后的行数组 { yy: number; equipName: string | null }[]
+ * @return 去重后的行数组 { yy: number; deviceName: string | null }[]
  */
 type ROWS_TYPE = {
   yy: number;
-  equipName: string | null;
   deviceName: string | null;
-  soipLevel2: string | null;
 }[];
 export const ROWS = (data: any[]) => {
   const newArr: ROWS_TYPE = [];
@@ -41,11 +39,11 @@ export const ROWS = (data: any[]) => {
     .map((item: any) => {
       return {
         yy: item.yy,
-        equipName: item.equipName,
-        soipLevel2: item.soipEn02,
         deviceName: item.deviceName,
       };
     })
+    // 排序
+    .sort((a, b) => a.yy - b.yy)
     // 对象数组去重
     .reduce((prev, cur) => {
       if (!prev.includes(cur.yy as never)) {
@@ -103,7 +101,7 @@ export const generateColumns = (data: any, dateRange: string[] | undefined, mode
     width: COLUMN_WIDTH(mode),
     height: (ROWS(data).length + 1) * ROW_HEIGHT,
     position: {
-      x: TABLE_WIDTH * 3 + index * COLUMN_WIDTH(mode),
+      x: TABLE_WIDTH + index * COLUMN_WIDTH(mode),
       y: 0,
     },
     label: item.toString(),
@@ -119,34 +117,12 @@ export const generateColumns = (data: any, dateRange: string[] | undefined, mode
 export const generateRows = (data: any, dateRange: string[] | undefined, mode: TIME_MODE) => {
   const tableHeaders = [
     {
-      id: '1tfn',
-      shape: 'table-head',
-      width: TABLE_WIDTH,
-      height: ROW_HEIGHT,
-      position: {
-        x: 0,
-        y: 0,
-      },
-      label: 'soip02',
-    },
-    {
-      id: '2tfn',
-      shape: 'table-head',
-      width: TABLE_WIDTH,
-      height: ROW_HEIGHT,
-      position: {
-        x: TABLE_WIDTH,
-        y: 0,
-      },
-      label: '生产单元',
-    },
-    {
       id: '3tfn',
       shape: 'table-head',
       width: TABLE_WIDTH,
       height: ROW_HEIGHT,
       position: {
-        x: TABLE_WIDTH * 2,
+        x: 0,
         y: 0,
       },
       label: '生产装置',
@@ -160,29 +136,7 @@ export const generateRows = (data: any, dateRange: string[] | undefined, mode: T
       width: TABLE_WIDTH + COLS(dateRange, mode).length * COLUMN_WIDTH(mode),
       height: ROW_HEIGHT,
       position: {
-        x: TABLE_WIDTH * 2,
-        y: ROW_HEIGHT + index * ROW_HEIGHT,
-      },
-      label: item.equipName,
-    });
-    r.push({
-      id: `${index + 1}tcsn`,
-      shape: 'table-cell',
-      width: TABLE_WIDTH,
-      height: ROW_HEIGHT,
-      position: {
         x: 0,
-        y: ROW_HEIGHT + index * ROW_HEIGHT,
-      },
-      label: item.soipLevel2,
-    });
-    r.push({
-      id: `${index + 1}tcdn`,
-      shape: 'table-cell',
-      width: TABLE_WIDTH,
-      height: ROW_HEIGHT,
-      position: {
-        x: TABLE_WIDTH,
         y: ROW_HEIGHT + index * ROW_HEIGHT,
       },
       label: item.deviceName,
@@ -212,7 +166,7 @@ export const generateData = (data: any, mode: TIME_MODE) => {
       x: timeToPositionX(item.scheduleStartDate, mode),
       y: yToPositionY(item.yy),
     };
-    item.label = item.materialCode;
+    item.label = item.name;
     item.parent = `${item.yy + 1}rn`;
     item.tools = [
       {
