@@ -75,5 +75,35 @@
     "deviceInfo": "这是设备信息",
     "orderInfo": "这是订单1的信息",
     "specifications": "#ffe0b2"
+  },
+  {
+    "id": "l1",
+    "source": 1001,
+    "target": 1002
+  },
+  {
+    "id": "l2",
+    "source": 1002,
+    "target": 1003
+  },
+  {
+    "id": "l3",
+    "source": 1003,
+    "target": 1004
+  },
+  {
+    "id": "l4",
+    "source": 1004,
+    "target": 1005
+  },
+  {
+    "id": "l5",
+    "source": 1005,
+    "target": 1006
+  },
+  {
+    "id": "l6",
+    "source": 1006,
+    "target": 1007
   }
 ]

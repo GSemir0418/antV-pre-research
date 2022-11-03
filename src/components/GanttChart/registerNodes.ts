@@ -149,4 +149,26 @@ export const registerNodes = (mode: TIME_MODE) => {
     },
     true,
   );
+  // 注册连线
+  Graph.registerEdge(
+    'lane-edge',
+    {
+      inherit: 'edge',
+      attrs: {
+        line: {
+          stroke: '#A2B1C3',
+          strokeWidth: 2,
+        },
+      },
+      label: {
+        attrs: {
+          label: {
+            fill: '#A2B1C3',
+            fontSize: 12,
+          },
+        },
+      },
+    },
+    true,
+  );
 };

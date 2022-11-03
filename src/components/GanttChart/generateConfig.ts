@@ -151,36 +151,50 @@ export const generateRows = (data: any, dateRange: string[] | undefined, mode: T
  * @params 原始数据
  * @returns 甘特图图元配置
  */
-export const generateData = (data: any, mode: TIME_MODE) => {
-  return data.map((item: any) => {
-    item.id = item.id.toString();
-    item.shape = 'lane-rect';
-    item.attrs = {
-      body: {
-        fill: item.specifications,
-      },
-    };
-    item.height = ITEM_HEIGHT;
-    item.width = minuteToPx(minuteGap(item.scheduleStartDate, item.scheduleEndDate), mode);
-    item.position = {
-      x: timeToPositionX(item.scheduleStartDate, mode),
-      y: yToPositionY(item.yy),
-    };
-    item.label = item.name;
-    item.parent = `${item.yy + 1}rn`;
-    item.tools = [
-      {
-        name: 'tooltip',
-        args: {
-          tooltip: item.id,
-          startTime: item.scheduleStartDate,
-          endTime: item.scheduleEndDate,
-          materialName: item.materialName,
-          remark: item.remark1,
-          scheduleNum: item.scheduleNum,
+export const generateData = (data: any[], mode: TIME_MODE) =>
+  data
+    .filter((item) => !item.id.toString().startsWith('l'))
+    .map((item) => {
+      item.id = item.id.toString();
+      item.shape = 'lane-rect';
+      item.attrs = {
+        body: {
+          fill: item.specifications,
         },
-      },
-    ];
-    return item;
-  });
-};
+      };
+      item.height = ITEM_HEIGHT;
+      item.width = minuteToPx(minuteGap(item.scheduleStartDate, item.scheduleEndDate), mode);
+      item.position = {
+        x: timeToPositionX(item.scheduleStartDate, mode),
+        y: yToPositionY(item.yy),
+      };
+      item.label = item.name;
+      item.parent = `${item.yy + 1}rn`;
+      item.tools = [
+        {
+          name: 'tooltip',
+          args: {
+            tooltip: item.id,
+            startTime: item.scheduleStartDate,
+            endTime: item.scheduleEndDate,
+            materialName: item.materialName,
+            remark: item.remark1,
+            scheduleNum: item.scheduleNum,
+          },
+        },
+      ];
+      return item;
+    });
+
+/**
+ * @desc 根据原始数据生成图元连线
+ * @params 原始数据
+ * @returns 甘特图图元连线配置
+ */
+export const generateEdge = (data: any[]) =>
+  data
+    .filter((item) => item.id.toString().startsWith('l'))
+    .map((item) => ({
+      ...item,
+      shape: 'lane-edge',
+    }));

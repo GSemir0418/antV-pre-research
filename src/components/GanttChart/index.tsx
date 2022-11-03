@@ -1,7 +1,7 @@
 import type { Cell, Graph } from '@antv/x6';
 import { useEffect, useMemo, useState } from 'react';
 import { minuteGap, positionXTotime, pxToMillionSecond, timeFormat } from './dataTransFormLib';
-import { generateColumns, generateData, generateRows } from './generateConfig';
+import { generateColumns, generateData, generateEdge, generateRows } from './generateConfig';
 import { initGraph } from './initGraph';
 const GanttChart = (chartProps: any) => {
   const { data, dateRange } = chartProps;
@@ -38,9 +38,15 @@ const GanttChart = (chartProps: any) => {
       ...generateRows(data, dateRange, timeMode),
       ...generateColumns(data, dateRange, timeMode),
       ...generateData(data, timeMode),
+      ...generateEdge(data),
     ]).forEach((item: any) => {
-      cells.push(graph.createNode(item));
+      if (item.shape === 'lane-edge') {
+        cells.push(graph.createEdge(item));
+      } else {
+        cells.push(graph.createNode(item));
+      }
     });
+    console.log(cells);
     graph.resetCells(cells);
     // 更新tooltip展示
     graph.on('node:mouseup', (props) => {
