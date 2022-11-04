@@ -38,7 +38,7 @@ export const initGraph = (mode: TIME_MODE) => {
       // color: 'lightgreen',
     },
     connecting: {
-      router: 'orth',
+      router: { name: 'manhattan', args: { padding: 0 } },
     },
     translating: {
       // 限制拖动范围
