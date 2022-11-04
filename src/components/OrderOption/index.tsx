@@ -13,7 +13,7 @@ const OrderOption = () => {
       result.push({
         id: 1000 + i,
         name: `A00${i}`,
-        desc: `这是A0${i}产线的描述`,
+        desc: `这是A0${i}订单的描述`,
       });
     }
     return result;

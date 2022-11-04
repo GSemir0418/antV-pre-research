@@ -5,6 +5,7 @@ import type { ProFormInstance } from '@ant-design/pro-components';
 import { useEffect, useRef, useState } from 'react';
 import fakeData from '../../components/GanttChart/fakeData.json';
 import s from './index.less';
+import ResourceUtilRate from '@/components/ResourceUtilRate';
 
 const GanttChartPage = () => {
   const formRef = useRef<ProFormInstance<Record<string, any>> | undefined>();
@@ -34,7 +35,9 @@ const GanttChartPage = () => {
           <div className={s.gantt}>
             <GanttChart data={data} dateRange={dateRange} />
           </div>
-          <div className={s.table}>表格</div>
+          <div className={s.table}>
+            <ResourceUtilRate dateRange={dateRange} />
+          </div>
         </div>
       </div>
     </div>
