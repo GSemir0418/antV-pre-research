@@ -48,7 +48,7 @@ export const initGraph = () => {
     },
     scroller: {
       enabled: true,
-      padding: 12,
+      // padding: 12,
       // pageWidth: 0,
       // minVisibleHeight: 0,
       // minVisibleWidth: 0,

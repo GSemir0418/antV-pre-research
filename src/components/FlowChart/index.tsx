@@ -1,4 +1,4 @@
-import { PartitionOutlined, SaveFilled } from '@ant-design/icons';
+import { PartitionOutlined, PicCenterOutlined, SaveFilled } from '@ant-design/icons';
 import type { Cell, Graph } from '@antv/x6';
 import { Toolbar } from '@antv/x6-react-components';
 import '@antv/x6-react-components/es/menu/style/index.css';
@@ -7,8 +7,8 @@ import { useState, useEffect } from 'react';
 import { autoLayout } from './autoLayout';
 import EditModal from './EditModal';
 import { getFakeData } from './getFakeData';
-// import { autoLayout } from './autoLayout';
 import { initGraph } from './initGraph';
+
 const FlowChart = () => {
   // 工序详情显隐
   const [isVisible, setVisible] = useState<boolean>(false);
@@ -19,6 +19,8 @@ const FlowChart = () => {
     if (name === 'format') {
       // 自动格式化
       autoLayout(graph!);
+    } else if (name === 'center') {
+      graph?.centerContent();
     }
   };
   // 控制链接桩显隐
@@ -46,22 +48,22 @@ const FlowChart = () => {
     // graph.zoomTo(0.8);
     // graph.zoomToFit();
     graph.centerContent();
-    graph.on('node:click', ({ node }) => {
-      if (node) {
-        graph.removeTools();
-        node.addTools({
-          name: 'boundary',
-          args: {
-            attrs: {
-              fill: '#7c68fc',
-              stroke: '#9254de',
-              strokeWidth: 1,
-              fillOpacity: 0.2,
-            },
-          },
-        });
-        setVisible(true);
-      }
+    graph.on('node:click', () => {
+      // if (node) {
+      //   graph.removeTools();
+      //   node.addTools({
+      //     name: 'boundary',
+      //     args: {
+      //       attrs: {
+      //         fill: '#7c68fc',
+      //         stroke: '#9254de',
+      //         strokeWidth: 1,
+      //         fillOpacity: 0.2,
+      //       },
+      //     },
+      //   });
+      // }
+      setVisible(true);
     });
     graph.on('node:mouseenter', () => {
       const container = document.getElementById('container')!;
@@ -134,10 +136,13 @@ const FlowChart = () => {
     <>
       <Toolbar size="big" align="right" hoverEffect={true} onClick={onToolbarClick}>
         <Toolbar.Group>
-          <Toolbar.Item name="save" tooltip="保存数据" icon={<SaveFilled />} />
+          <Toolbar.Item name="format" tooltip="自动布局" icon={<PartitionOutlined />} />
         </Toolbar.Group>
         <Toolbar.Group>
-          <Toolbar.Item name="format" tooltip="自动布局" icon={<PartitionOutlined />} />
+          <Toolbar.Item name="center" tooltip="图元居中" icon={<PicCenterOutlined />} />
+        </Toolbar.Group>
+        <Toolbar.Group>
+          <Toolbar.Item name="save" tooltip="保存数据" icon={<SaveFilled />} />
         </Toolbar.Group>
       </Toolbar>
       <div id="container" />
