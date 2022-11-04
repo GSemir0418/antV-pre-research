@@ -18,7 +18,7 @@
 .orderOption {
   width: 300px;
   height: calc(100vh - 50px);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .chart {
@@ -38,4 +38,8 @@
 .table {
   flex: 1;
   overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
