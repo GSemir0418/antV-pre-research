@@ -44,6 +44,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^2.3.13",
+    "@antv/s2": "^1.33.1",
     "@antv/x6": "^1.34.5",
     "@antv/x6-react-components": "^1.1.19",
     "@types/dagre": "^0.7.48",

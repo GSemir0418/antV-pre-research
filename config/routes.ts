@@ -70,4 +70,10 @@ export default [
     path: '/gantt-chart',
     component: './GanttChart',
   },
+  {
+    name: 'flow-sheet',
+    layout: false,
+    path: '/flow-sheet',
+    component: './FlowSheet',
+  },
 ];
