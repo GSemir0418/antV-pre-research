@@ -1,16 +1,19 @@
-import { PivotSheet } from '@antv/s2';
-import { useEffect } from 'react';
+import { SheetComponent } from '@antv/s2-react';
+import { useRef, useState } from 'react';
 import fakeSheetData from './fakeSheetData.json';
+import type { SpreadSheet } from '@antv/s2';
 const FlowSheet = () => {
-  useEffect(() => {
-    const container = document.getElementById('flow-sheet-container')!;
-    const s2Options = {
-      width: document.body.clientWidth,
-      height: document.body.clientHeight,
-    };
-    const s2 = new PivotSheet(container, fakeSheetData, s2Options);
-    s2.render();
-  }, []);
-  return <div id="flow-sheet-container" />;
+  const initOptions = {
+    width: document.body.clientWidth,
+    height: document.body.clientHeight,
+  };
+  const S2Ref = useRef<SpreadSheet>(null);
+  const [options] = useState(initOptions);
+  const [dataCfg] = useState(fakeSheetData);
+  return (
+    <div id="flow-sheet-container">
+      <SheetComponent ref={S2Ref} dataCfg={dataCfg} options={options} sheetType={'pivot'} />
+    </div>
+  );
 };
 export default FlowSheet;
