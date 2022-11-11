@@ -1,14 +1,16 @@
 {
   "describe": "标准交叉表数据",
   "fields": {
-    "rows": ["productName", "operationNo", "operationDescription", "instructionType", "instructionCode", "resource"],
-    "values": [
-      "frontSettings",
-      "make",
-      "postSettings",
-      "connectionMethod",
-      "moveTime"
+    "rows": [
+      "productName",
+      "operationNo",
+      "operationDescription",
+      "instructionType",
+      "instructionCode",
+      "resource"
     ],
+    "columns": ["setting"],
+    "values": ["value"],
     "valueInCols": true
   },
   "meta": [
@@ -37,24 +39,12 @@
       "name": "品目/资源"
     },
     {
-      "field": "frontSettings",
-      "name": "前设置"
+      "field": "setting",
+      "name": "配置"
     },
     {
-      "field": "make",
-      "name": "制造"
-    },
-    {
-      "field": "postSettings",
-      "name": "后设置"
-    },
-    {
-      "field": "connectionMethod",
-      "name": "接续方法"
-    },
-    {
-      "field": "moveTime",
-      "name": "移动时间/min"
+      "field": "value",
+      "name": "数值"
     }
   ],
   "data": [

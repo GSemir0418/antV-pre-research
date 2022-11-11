@@ -4,6 +4,7 @@ import fakeSheetData from './fakeSheetData.json';
 import type { SpreadSheet } from '@antv/s2';
 import { S2Event } from '@antv/s2';
 import { pick } from 'lodash';
+import { initData } from '@/pages/FlowSheet/initData';
 const FlowSheet = () => {
   const initOptions = {
     width: document.body.clientWidth,
@@ -14,7 +15,7 @@ const FlowSheet = () => {
   // sheet选项
   const [options] = useState(initOptions);
   // 数据配置
-  const [dataCfg] = useState(fakeSheetData);
+  const [dataCfg] = useState(initData(fakeSheetData));
   // input value
   const [value, setValue] = useState('');
   // input show
@@ -45,7 +46,7 @@ const FlowSheet = () => {
       const rowCellWidth = (sheet.getRowLeafNodes()[0] || { width: 0 }).width;
       setPosition({
         left: cellMeta.x + rowCellWidth * 6,
-        top: cellMeta.y + colCellHeight,
+        top: cellMeta.y + colCellHeight * 2,
         width: cellMeta.width,
         height: cellMeta.height,
       });
