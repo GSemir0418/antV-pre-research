@@ -88,6 +88,10 @@ const FlowSheet = () => {
       inputRef.current?.removeEventListener('keydown', onKeyDown);
     };
   }, [value]);
+  // 自动focus
+  useEffect(() => {
+    inputRef.current?.focus({ preventScroll: true });
+  }, [show]);
   return (
     <div id="flow-sheet-container" style={{ position: 'relative' }}>
       <SheetComponent ref={S2Ref} dataCfg={dataCfg} options={options} sheetType={'pivot'} />
