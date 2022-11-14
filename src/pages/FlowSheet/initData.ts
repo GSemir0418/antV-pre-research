@@ -33,3 +33,15 @@ export const initData = (dataCfg: any) => {
   }
   return { ...dataCfg, data: arr };
 };
+// 根据产品名称获取对应总行数
+export const getRowCount = (dataCfg: any, field: string) => {
+  const originData = [...dataCfg.data];
+  let result = 0;
+  for (const d of originData) {
+    if (d.productName === field) {
+      result += 1;
+    }
+  }
+  console.log(result);
+  return result;
+};
