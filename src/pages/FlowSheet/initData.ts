@@ -42,6 +42,6 @@ export const getRowCount = (dataCfg: any, field: string) => {
       result += 1;
     }
   }
-  console.log(result);
+  console.log('row count', result);
   return result;
 };

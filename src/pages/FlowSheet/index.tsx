@@ -62,13 +62,14 @@ const FlowSheet = () => {
     if (sheet && cell) {
       const { rowIndex, colIndex, valueField, data } = cell.getMeta();
       console.log(cell.getMeta());
-      // console.log('row', rowIndex);
-      // console.log('col', colIndex);
+      console.log('row', rowIndex);
+      console.log('col', colIndex);
       // originData中图元是沿横向自左上呈蛇形排列的形式
       // 按产品名称进行分组，即先排产品A，再排产品B
       // 单元格所在产品: data.productName
       // 计算单元格所在产品的行数
       const cellIndex = rowIndex * getRowCount(fakeSheetData, data.productName) + colIndex;
+      console.log('cell', cellIndex);
       console.log('data', sheet.dataSet.originData);
       sheet.dataSet.originData[cellIndex][valueField] = val;
       sheet.setDataCfg({ ...sheet.dataCfg, data: sheet.dataSet.originData });
